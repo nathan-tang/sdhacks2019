@@ -20,7 +20,6 @@ def get_image():
 
     itemList = detect_labels_local_file('imageToSave.png')
     #print("Labels detected: " + str(itemList))
-
     is_recyclable(itemList)
     
     return image_data
