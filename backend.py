@@ -22,8 +22,19 @@ def get_image():
         fh.write(img)
 
     itemList = detect_labels_local_file('imageToSave.png')
-    #print("Labels detected: " + str(itemList))
-    return str(is_recyclable(itemList))
+    print("Labels detected: " + str(itemList))
+    outputStr = 'System detected: '
+    if len(is_recyclable(itemList)) == 0:
+        outputStr += 'Item is not recyclable'
+    else:
+        for item in is_recyclable(itemList):
+            outputStr += item[0] + ' with ' + str(round(item[1], 2)) + '% confidence\n'
+        if len(is_recyclable(itemList)) > 1:
+            outputStr += '\nItems are recyclable!'
+        else: 
+            outputStr += '\nItem is recyclable!'
+    
+    return outputStr       #whatever this returns is what is printed
 
 
 def is_recyclable(itemList):

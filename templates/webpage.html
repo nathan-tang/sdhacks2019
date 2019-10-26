@@ -28,7 +28,7 @@
             }
             div
             {
-                background: lightgray;
+                background: lightgreen;
                 margin: auto;
                 padding: 20px;
             }
@@ -37,19 +37,18 @@
                 display:block;
                 margin: 20px;
                 padding: 10px 20px;
-                background-color: lightgray;
+                background-color: lightgreen;
                 color:black;
                 text-align: center;
             }
  	    #capture:hover
    	    {
-		background-color: gray;
+		background-color: green;
 	    }
     </style>
 
     <script>
-	var recycle_indict = "Can Recycle";
-	document.getElementById("recycle_indict").innerHTML = recycle_indict;
+	var recycle_indict = document.getElementById("recycle_indict").innerHTML;
         var video = document.querySelector("#videoElement");
         var canvas = document.getElementById('canvas');
         var context = canvas.getContext('2d');
