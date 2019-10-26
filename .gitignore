@@ -3,6 +3,7 @@
 # Edit at https://www.gitignore.io/?templates=python,pycharm,windows,eclipse,virtualenv
 
 credentials.py
+imageToSave.png
 
 ### Eclipse ###
 .metadata
