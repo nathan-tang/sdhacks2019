@@ -18,8 +18,21 @@ def get_image():
     with open('imageToSave.png', 'wb') as fh:
         fh.write(img)
 
-    label_count = detect_labels_local_file('imageToSave.png')
-    print("Labels detected: " + str(label_count))
+    itemList = detect_labels_local_file('imageToSave.png')
+    #print("Labels detected: " + str(itemList))
+
+    is_recyclable(itemList)
+    
+    return image_data
+
+def is_recyclable(itemList):
+    recycleList = ['Plastic', 'Bottle', 'Cardboard', 'Metal', 'Aluminum', 'Can', 'Glass', 'Battery', 'Paper', 'Glass']
+    recyclables = []
+    for item in itemList:
+        if item['Name'] in recycleList:
+            recyclables.append((item['Name'], item['Confidence']))
+    print(recyclables)
+    return recyclables
 
 def detect_labels_local_file(photo):
     client = boto3.client('rekognition', region_name='us-west-2', aws_access_key_id=credentials.access_key,
@@ -27,13 +40,15 @@ def detect_labels_local_file(photo):
 
     with open(photo, 'rb') as image:
         response = client.detect_labels(Image={'Bytes': image.read()})
-
+    
     print('Detected labels in ' + photo)
     for label in response['Labels']:
         print(label['Name'] + ' : ' + str(label['Confidence']))
+        
+    return response['Labels']
 
-    return len(response['Labels'])
-
+                        
 if __name__ == '__main__':
     while True:
         app.run()
+        
