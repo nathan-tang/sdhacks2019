@@ -1,23 +1,32 @@
 <!DOCTYPE html>
 <html>
- <head>
+
+<head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
- </head>
+</head>
+
 <body>
-    <header><a href="#" id="capture" class="capture-button">Take Photo</a></header>
+    <header>
+        <a href="#" id="capture" class="capture-button">Take Photo</a>
+    </header>
     <canvas id="canvas" width="500" height="375"></canvas>
+    
     <section>
-    <div><video autoplay="true" id="videoElement" width="500" height="375" ></video></div>
-    <div><img id="photo" src="http://placekitten.com/g/500/375" alt=""></img></div>
-        <style>
+        <div><video autoplay="true" id="videoElement" width="500" height="375" ></video></div>
+        <div><img id="photo" src="http://placekitten.com/g/500/375" alt=""></img></div>
+    </section>
+    
+    <style>
             #canvas
             {
                 display:none;
             }
-            section{
+            section
+            {
                 display: flex;
             }
-            div{
+            div
+            {
                 background: lightgray;
                 margin: auto;
                 padding: 20px;
@@ -31,35 +40,32 @@
                 color:black;
                 text-align: center;
             }
-        </style>
-    </section>
-<script>
+    </style>
 
-var video = document.querySelector("#videoElement");
-var canvas = document.getElementById('canvas');
-var context = canvas.getContext('2d');
-var photo = document.getElementById('photo'); 
+    <script>
+        var video = document.querySelector("#videoElement");
+        var canvas = document.getElementById('canvas');
+        var context = canvas.getContext('2d');
+        var photo = document.getElementById('photo'); 
 
-if (navigator.mediaDevices.getUserMedia) {
-  navigator.mediaDevices.getUserMedia({ video: true })
-    .then(function (stream) {
-      video.srcObject = stream;
-    })
-    .catch(function (err0r) {
-      console.log("Something went wrong!");
-    });
-}
-document.getElementById('capture').addEventListener('click',function(){
-    context.drawImage(video,0,0,500,375);
-    photo.setAttribute('src', canvas.toDataURL('image/png'));
-    console.log(photo);
-    $.ajax({
-        type: "POST",
-        url: "http://localhost:5000",
-        data: {imageBase64: canvas.toDataURL('image/png')}
-    })
-})
+        if (navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function (stream) {
+                video.srcObject = stream;})
+            .catch(function (err0r) {
+                console.log("Something went wrong!");});
+        }
+        document.getElementById('capture').addEventListener('click',function(){
+            context.drawImage(video,0,0,500,375);
+            photo.setAttribute('src', canvas.toDataURL('image/png'));
+            console.log(photo);
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:5000",
+                data: {imageBase64: canvas.toDataURL('image/png')}
+            })
+        })
+    </script>
 
-</script>
 </body>
 </html>
