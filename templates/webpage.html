@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
- 
+ <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+ </head>
 <body>
     <header><a href="#" id="capture" class="capture-button">Take Photo</a></header>
     <canvas id="canvas" width="500" height="375"></canvas>
@@ -36,7 +38,7 @@
 var video = document.querySelector("#videoElement");
 var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
-var photo = document.getElementById('photo');
+var photo = document.getElementById('photo'); 
 
 if (navigator.mediaDevices.getUserMedia) {
   navigator.mediaDevices.getUserMedia({ video: true })
@@ -50,6 +52,12 @@ if (navigator.mediaDevices.getUserMedia) {
 document.getElementById('capture').addEventListener('click',function(){
     context.drawImage(video,0,0,500,375);
     photo.setAttribute('src', canvas.toDataURL('image/png'));
+    console.log(photo);
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:5000",
+        data: {imageBase64: canvas.toDataURL('image/png')}
+    })
 })
 
 </script>
