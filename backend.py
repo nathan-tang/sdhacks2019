@@ -20,6 +20,7 @@ def get_image():
 
     label_count = detect_labels_local_file('imageToSave.png')
     print("Labels detected: " + str(label_count))
+    return image_data
 
 def detect_labels_local_file(photo):
     client = boto3.client('rekognition', region_name='us-west-2', aws_access_key_id=credentials.access_key,
