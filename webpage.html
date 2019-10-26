@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+ 
+<body>
+    <a href="#" id="capture" class="capture-button">Take Photo</a>
+    <canvas id="canvas" width="400" height="300"></canvas>
+    <img id="photo" src="http://placekitten.com/g/400/300" alt=""></img>
+	<video autoplay="true" id="videoElement" width="400" height="300" >
+        <style>
+            #canvas
+            {
+                display:none;
+                position:absolute;
+                left: 430px;
+                top: 370px;
+            }
+            #photo
+            {
+                position:absolute;
+                left: 430px;
+                top: 370px;
+            }
+            #capture
+            {
+                display:block;
+                margin: 10px;
+                padding: 10px 20px;
+                background-color: cornflowerblue;
+                color:white;
+                text-align: center;
+            }
+            #videoElement
+            {
+                position:absolute;
+                left:430px;
+            }
+        </style>
+	</video>
+<script>
+
+var video = document.querySelector("#videoElement");
+var canvas = document.getElementById('canvas');
+var context = canvas.getContext('2d');
+var photo = document.getElementById('photo');
+
+if (navigator.mediaDevices.getUserMedia) {
+  navigator.mediaDevices.getUserMedia({ video: true })
+    .then(function (stream) {
+      video.srcObject = stream;
+    })
+    .catch(function (err0r) {
+      console.log("Something went wrong!");
+    });
+}
+document.getElementById('capture').addEventListener('click',function(){
+    context.drawImage(video,0,0,400,300);
+    photo.setAttribute('src', canvas.toDataURL('image/png'));
+})
+
+</script>
+</body>
+</html>
