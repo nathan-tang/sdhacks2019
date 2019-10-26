@@ -23,16 +23,16 @@ def get_image():
 
     itemList = detect_labels_local_file('imageToSave.png')
     print("Labels detected: " + str(itemList))
-    outputStr = 'System detected: '
+    outputStr = ''
     if len(is_recyclable(itemList)) == 0:
         outputStr += 'Item is not recyclable'
     else:
         for item in is_recyclable(itemList):
-            outputStr += item[0] + ' with ' + str(round(item[1], 2)) + '% confidence\n'
+            outputStr += item[0] + ' with ' + str(round(item[1], 2)) + '% confidence : '
         if len(is_recyclable(itemList)) > 1:
-            outputStr += '\nItems are recyclable!'
+            outputStr += 'Items are recyclable!'
         else: 
-            outputStr += '\nItem is recyclable!'
+            outputStr += 'Item is recyclable!'
     
     return outputStr       #whatever this returns is what is printed
 
