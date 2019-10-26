@@ -2,40 +2,35 @@
 <html>
  
 <body>
-    <a href="#" id="capture" class="capture-button">Take Photo</a>
-    <canvas id="canvas" width="400" height="300"></canvas>
-    <img id="photo" src="http://placekitten.com/g/400/300" alt=""></img>
-	<video autoplay="true" id="videoElement" width="400" height="300" >
+    <header><a href="#" id="capture" class="capture-button">Take Photo</a></header>
+    <canvas id="canvas" width="500" height="375"></canvas>
+    <section>
+    <div><video autoplay="true" id="videoElement" width="500" height="375" ></video></div>
+    <div><img id="photo" src="http://placekitten.com/g/500/375" alt=""></img></div>
         <style>
             #canvas
             {
                 display:none;
-                position:absolute;
-                left: 430px;
-                top: 370px;
             }
-            #photo
-            {
-                position:absolute;
-                left: 430px;
-                top: 370px;
+            section{
+                display: flex;
+            }
+            div{
+                background: lightgray;
+                margin: auto;
+                padding: 20px;
             }
             #capture
             {
                 display:block;
-                margin: 10px;
+                margin: 20px;
                 padding: 10px 20px;
-                background-color: cornflowerblue;
-                color:white;
+                background-color: lightgrey;
+                color:black;
                 text-align: center;
             }
-            #videoElement
-            {
-                position:absolute;
-                left:430px;
-            }
         </style>
-	</video>
+    </section>
 <script>
 
 var video = document.querySelector("#videoElement");
@@ -53,7 +48,7 @@ if (navigator.mediaDevices.getUserMedia) {
     });
 }
 document.getElementById('capture').addEventListener('click',function(){
-    context.drawImage(video,0,0,400,300);
+    context.drawImage(video,0,0,500,375);
     photo.setAttribute('src', canvas.toDataURL('image/png'));
 })
 
