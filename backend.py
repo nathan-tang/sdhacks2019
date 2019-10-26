@@ -4,7 +4,10 @@ import re
 import boto3
 import credentials
 
+from flask_cors import CORS
+
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/')
 def request_image(): 
@@ -20,9 +23,8 @@ def get_image():
 
     itemList = detect_labels_local_file('imageToSave.png')
     #print("Labels detected: " + str(itemList))
-    is_recyclable(itemList)
-    
-    return image_data
+    return str(is_recyclable(itemList))
+
 
 def is_recyclable(itemList):
     recycleList = ['Plastic', 'Bottle', 'Cardboard', 'Metal', 'Aluminum', 'Can', 'Glass', 'Battery', 'Paper', 'Glass']
@@ -40,9 +42,9 @@ def detect_labels_local_file(photo):
     with open(photo, 'rb') as image:
         response = client.detect_labels(Image={'Bytes': image.read()})
     
-    print('Detected labels in ' + photo)
-    for label in response['Labels']:
-        print(label['Name'] + ' : ' + str(label['Confidence']))
+    #print('Detected labels in ' + photo)
+    #for label in response['Labels']:
+        #print(label['Name'] + ' : ' + str(label['Confidence']))
         
     return response['Labels']
 

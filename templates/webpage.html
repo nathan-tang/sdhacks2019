@@ -65,8 +65,11 @@
             $.ajax({
                 type: "POST",
                 url: "http://localhost:5000",
-                data: {imageBase64: canvas.toDataURL('image/png')}
-            })
+                data: {imageBase64: canvas.toDataURL('image/png')},
+                success: function(result){
+                    console.log(result);
+                    document.getElementById("recycle_indict").innerHTML = result;
+            }})
         })
     </script>
 </body>
