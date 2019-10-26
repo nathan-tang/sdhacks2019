@@ -10,11 +10,12 @@
         <a href="#" id="capture" class="capture-button">Take Photo</a>
     </header>
     <canvas id="canvas" width="500" height="375"></canvas>
-    
     <section>
         <div><video autoplay="true" id="videoElement" width="500" height="375" ></video></div>
         <div><img id="photo" src="http://placekitten.com/g/500/375" alt=""></img></div>
     </section>
+    
+    <p id="recycle_indict"></p>
     
     <style>
             #canvas
@@ -43,10 +44,12 @@
     </style>
 
     <script>
+	var recycle_indict = "Can Recycle";
+	document.getElementById("recycle_indict").innerHTML = recycle_indict;
         var video = document.querySelector("#videoElement");
         var canvas = document.getElementById('canvas');
         var context = canvas.getContext('2d');
-        var photo = document.getElementById('photo'); 
+        var photo = document.getElementById('photo');
 
         if (navigator.mediaDevices.getUserMedia) {
             navigator.mediaDevices.getUserMedia({ video: true })
@@ -66,6 +69,5 @@
             })
         })
     </script>
-
 </body>
 </html>
